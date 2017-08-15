@@ -91,9 +91,15 @@ CakePlugin::load(array('DebugKit', 'Migrations'));
  *
  * ));
  */
+
+/**
+ * vendorsディレクトリにインポート
+ */
+require '../../vendors/autoload.php';
+
 Configure::write('Dispatcher.filters', array(
 	'AssetDispatcher',
-	'CacheDispatcher'
+	'CacheDispatcher',
 ));
 
 /**
