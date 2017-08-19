@@ -41,7 +41,7 @@ class Attachment extends AppModel{
     public $belogsTo = array(
         'User' => array(
             'className' => 'User',
-            'foreignKey' => 'foreign_key',
+            'foreignKey' => 'foreign_key'
         ),
     );
 }

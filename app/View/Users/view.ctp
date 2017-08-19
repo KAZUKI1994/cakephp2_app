@@ -21,24 +21,52 @@
 			<?php echo h($user['User']['role']); ?>
 			&nbsp;
 		</dd>
-        <dt>プロフィール写真<?php //debug($user); ?></dt>
+        <dt><?php echo __('Created'); ?></dt>
         <dd>
-            <?php
-            // Todo: helperへ切り出し
-            $photo_url = "/files/attachment/photo_user/{$user['Attachment'][0]['dir']}/{$user['Attachment'][0]['photo_user']}";
+            <?php echo h($user['User']['created']); ?>
+            &nbsp;
+        </dd>
+        <dt><?php echo __('Modified'); ?></dt>
+        <dd>
+            <?php echo h($user['User']['modified']); ?>
+        </dd>
+        <dt>プロフィール写真</dt>
+        <dd>
+            <?php if($user['Attachment']){
+                // Todo: helperへ切り出し
+                $photo_url = "/files/attachment/photo_user/{$user['Attachment'][0]['dir']}/{$user['Attachment'][0]['photo_user']}";
+            }else{
+                $photo_url = "default_user.jpg"; //デフォルトのプロフィール画像
+            }
             echo $this->Html->image($photo_url);
+
             ?>
         </dd>
-		<dt><?php echo __('Created'); ?></dt>
-		<dd>
-			<?php echo h($user['User']['created']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Modified'); ?></dt>
-		<dd>
-			<?php echo h($user['User']['modified']); ?>
-			&nbsp;
-		</dd>
+        <h3>あなたの投稿一覧</h3>
+        <?php if($user['Post']): ?>
+            <table>
+                <thead>
+                    <tr>
+                        <td>id</td>
+                        <td>title</td>
+                        <td>body</td>
+                        <td>created</td>
+                        <td>modified</td>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php foreach($user['Post'] as $post): ?>
+                    <tr>
+                        <td><?php echo $post['id']; ?></td>
+                        <td><?php echo $post['title']; ?></td>
+                        <td><?php echo $post['body']; ?></td>
+                        <td><?php echo $post['created']; ?></td>
+                        <td><?php echo $post['modified']; ?></td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php endif; ?>
 	</dl>
 </div>
 <div class="actions">

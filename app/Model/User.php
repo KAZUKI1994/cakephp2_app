@@ -18,6 +18,10 @@ class User extends AppModel{
                 'Attachment.model' => 'User',
             ),
         ),
+        'Post' => array(
+            'className' => 'Post',
+            'foreignKey' => 'user_id'
+        ),
     );
 
     public $validate = array(
