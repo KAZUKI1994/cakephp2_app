@@ -7,8 +7,8 @@
  */
 
 class PostsController extends AppController{
-    public $helpers = array('Html', 'Form', 'Flash');
-    public $components = array('Flash');
+    public $helpers = array('Html', 'Form', 'Flash', 'Link');
+    public $components = array('Flash', 'Math');
 
     public function index(){
         $this->set('posts', $this->Post->find('all'));
