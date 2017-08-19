@@ -33,8 +33,11 @@
         <dt>プロフィール写真</dt>
         <dd>
             <?php if($user['Attachment']){
-                // Todo: helperへ切り出し
-                $photo_url = "/files/attachment/photo_user/{$user['Attachment'][0]['dir']}/{$user['Attachment'][0]['photo_user']}";
+                $photo_url = $this->Link->imageurl(
+                        "photo_user",
+                        $user['Attachment'][0]['dir'],
+                        $user['Attachment'][0]['photo_user']
+                );
             }else{
                 $photo_url = "default_user.jpg"; //デフォルトのプロフィール画像
             }

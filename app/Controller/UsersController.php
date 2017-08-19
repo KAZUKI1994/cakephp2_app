@@ -11,6 +11,8 @@ App::uses('CakeEmail', 'Network/Email');
 
 class UsersController extends AppController{
 
+    public $helper = array('Link');
+
     public function beforeFilter(){
         parent::beforeFilter();
         $this->Auth->allow('add', 'logout');

@@ -15,4 +15,16 @@ class LinkHelper extends AppHelper{
 
         return '<div class="editOuter">' . $link . '</div>';
     }
+
+    /**
+     * 画像URLを生成する
+     * @param $prop プロパティ名（ex. photo_user, photo_post）
+     * @param $dir ディレクトリパス
+     * @param $filename ファイル名
+     * @return url
+     */
+    public function imageurl($prop, $dir, $filename){
+        $url = "/files/attachment/$prop/{$dir}/{$filename}";
+        return $url;
+    }
 }
