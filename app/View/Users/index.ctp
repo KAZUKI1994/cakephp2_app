@@ -30,6 +30,7 @@
 <?php endforeach; ?>
 	</tbody>
 	</table>
+    <p><?php echo $this->Html->link(__('CSV DOWNLOAD'), array('action' => 'download_csv')); ?></p>
 	<p>
 	<?php
 	echo $this->Paginator->counter(array(

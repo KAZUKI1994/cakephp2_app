@@ -11,7 +11,7 @@ App::uses('CakeEmail', 'Network/Email');
 
 class UsersController extends AppController{
 
-    public $helper = array('Link');
+    public $helper = array('Link', 'Csv');
 
     public function beforeFilter(){
         parent::beforeFilter();
@@ -101,5 +101,15 @@ class UsersController extends AppController{
         }
         $this->Flash->error(__('User was not deleted'));
         return $this->redirect(array('action' => 'index'));
+    }
+
+    public function download_csv(){
+        $this->layout = false;
+        $filename = 'CSV download_'.date('YmdHis');
+        // ヘッダー行
+        $th = array('id', 'username', 'role');
+        // ボディ
+        $td = $this->User->find('all', array('fields' => $th));
+        $this->set(compact('filename', 'th', 'td'));
     }
 }
