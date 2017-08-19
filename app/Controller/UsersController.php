@@ -7,6 +7,7 @@
  */
 
 App::uses('AppController', 'Controller');
+App::uses('CakeEmail', 'Network/Email');
 
 class UsersController extends AppController{
 
@@ -44,8 +45,9 @@ class UsersController extends AppController{
 
     public function add(){
         if($this->request->is('post')){
+            debug($this->request->data);
             $this->User->create();
-            if($this->User->save($this->request->data)){
+            if($this->User->saveAll($this->request->data)){
                 $this->Flash->success(__('The user has been saved.'));
                 return $this->redirect(array('action' => 'index'));
             }
@@ -71,13 +73,27 @@ class UsersController extends AppController{
     }
 
     public function delete($id = null){
+        $email = new CakeEmail('default');
+
         $this->request->allowMethod('post');
 
         $this->User->id = $id;
         if(!$this->User->exists()){
             throw new NotFoundException(__('Invalid User'));
         }
-        if($this->User->delete()){
+        if($this->User->delete()) {
+
+            // 削除完了メールの送信
+            $arrVal = array(
+                'id' => $id,
+            );
+            $email->template('user_delete')
+                ->viewVars($arrVal)
+                ->to('econoics0it0bem0116@gmail.com')
+                ->subject('アカウントは正常に削除されました。')
+                ->send();
+
+            // 一覧画面への遷移
             $this->Flash->success(__('User deleted'));
             return $this->redirect(array('action' => 'index'));
         }

@@ -21,6 +21,14 @@
 			<?php echo h($user['User']['role']); ?>
 			&nbsp;
 		</dd>
+        <dt>プロフィール写真<?php //debug($user); ?></dt>
+        <dd>
+            <?php
+            // Todo: helperへ切り出し
+            $photo_url = "/files/attachment/photo_user/{$user['Attachment'][0]['dir']}/{$user['Attachment'][0]['photo_user']}";
+            echo $this->Html->image($photo_url);
+            ?>
+        </dd>
 		<dt><?php echo __('Created'); ?></dt>
 		<dd>
 			<?php echo h($user['User']['created']); ?>
