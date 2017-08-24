@@ -11,8 +11,17 @@ class PostsController extends AppController{
     public $components = array('Flash', 'Math');
 
     public function index(){
-        $this->set('posts', $this->Post->find('all'));
-    }
+        // 検索パラメータを受け取った場合
+        if($this->request->is('post')){
+            $title = $this->request->data['Search']['title'];
+            $posts = $this->Post->find('all', array(
+                'conditions' => array('title like'=>'%'.$title.'%')
+            ));
+            $this->set('posts', $posts);
+        }else{
+            $this->set('posts', $this->Post->find('all'));
+        }
+     }
 
     public function view($id = null){
         if(!$id){
@@ -74,6 +83,10 @@ class PostsController extends AppController{
             $this->Flash->error(__('The post with id: %s could not be deleted.', h($id)));
         }
         return $this->redirect(array('action' => 'index'));
+    }
+
+    public function search(){
+
     }
 
     public function isAuthorized($user){
